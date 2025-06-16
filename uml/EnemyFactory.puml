@@ -1,0 +1,79 @@
+@startuml
+'https://plantuml.com/class-diagram
+class Game
+abstract class AbstractEnemyAircraft {
+    + AbstractEnemyAircraft(int locationX, int locationY, int speedX, int speedY,
+                        int hp, int direction, int shootNum, int power,ShootStrategy shootStrategy)
+    + AbstractEnemyAircraft(int locationX,int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + {abstract} produceProp():AbstractProp
+}
+Game ..> AbstractEnemyAircraft
+
+class MobEnemy{
+    + MobEnemy(int locationX,int locationY, int speedX, int speedY, int hp)
+    + produceProp():AbstractProp
+    + update():void
+}
+
+AbstractEnemyAircraft <|-- MobEnemy
+class EliteEnemy{
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+                int hp, int direction, int shootNum, int power,ShootStrategy shootStrategy)
+    + produceProp():AbstractProp
+    + update():void
+}
+AbstractEnemyAircraft <|-- EliteEnemy
+class ElitePlusEnemy{
+    + ElitePlusEnemy(int locationX, int locationY, int speedX, int speedY,
+                int hp, int direction, int shootNum, int power,ShootStrategy shootStrategy)
+    + produceProp():AbstractProp
+    + update():void
+}
+AbstractEnemyAircraft <|-- ElitePlusEnemy
+class BossEnemy{
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY,
+                int hp, int direction, int shootNum, int power,ShootStrategy shootStrategy)
+    + produceProp():AbstractProp
+}
+AbstractEnemyAircraft <|-- BossEnemy
+abstract class AbstractEnemyFactory {
++ {abstract} AbstractEnemyAircraft createEnemy()
+}
+AbstractEnemyAircraft -[hidden]> AbstractEnemyFactory
+Game ..> AbstractEnemyFactory
+class MobEnemyFactory{
+    - {static} speedX:int
+    - {static} speedY:int
+    - {static} hp :int
+    + createEnemy():AbstractAircraft
+    + {static} changeAttribute(double diffRate):void
+    }
+AbstractEnemyFactory <|-- MobEnemyFactory
+class EliteEnemyFactory{
+    - {static} speedX:int
+    - {static} speedY:int
+    - {static} hp :int
+    + createEnemy():AbstractAircraft
+    + {static} changeAttribute(double diffRate):void
+}
+AbstractEnemyFactory <|-- EliteEnemyFactory
+class ElitePlusEnemyFactory{
+    - {static} speedX:int
+    - {static} speedY:int
+    - {static} hp :int
+    + createEnemy():AbstractAircraft
+    + {static} changeAttribute(double diffRate):void
+}
+AbstractEnemyFactory <|-- ElitePlusEnemyFactory
+class BossEnemyFactory{
+    + {static} changeAttribute(double diffRate):void
+}
+AbstractEnemyFactory <|-- BossEnemyFactory
+MobEnemyFactory ..> MobEnemy:create
+EliteEnemyFactory ..> EliteEnemy:create
+ElitePlusEnemyFactory ..> ElitePlusEnemy:create
+BossEnemyFactory ..> BossEnemy:create
+
+
+@enduml

@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+abstract class AbstractProp {
+    + AbstractProp(int locationX,int locationY,int speedX, int speedY)
+    + forward():void
+    + {abstract} function(HeroAircraft heroAircraft):void
+}
+class BloodSupplyProp{
+    + BloodSupplyProp(int locationX,int locationY,int speedX, int speedY)
+    + function(HeroAircraft heroAircraft):void
+}
+
+class BombSupplyProp{
+    - subscriberList:List<Subscriber>
+    + BombSupplyProp(int locationX,int locationY,int speedX, int speedY)
+    + addSubscriber(Subscriber subscriber):void
+    + removeSubscriber(Subscriber subscriber):void
+    + notifyAllSubscribers():void
+    + function(HeroAircraft heroAircraft):void
+}
+
+class FireSupplyProp{
+    + FireSupplyProp(int locationX,int locationY,int speedX, int speedY)
+    + function(HeroAircraft heroAircraft):void
+}
+class BulletPlusProp{
+    + BulletPlusProp(int locationX,int locationY,int speedX, int speedY)
+    + function(HeroAircraft heroAircraft):void
+}
+
+abstract class AbstractPropFactory {
+    + {abstract} createProp(int locationX,int locationY,int speedX, int speedY):AbstractPropFactory
+}
+class BloodPropFactory{
+    + createProp(int locationX,int locationY,int speedX, int speedY):AbstractPropFactory
+    }
+
+class FirePropFactory{
+    + createProp(int locationX,int locationY,int speedX, int speedY):AbstractPropFactory
+        }
+
+class BombPropFactory{
+    + createProp(int locationX,int locationY,int speedX, int speedY):AbstractPropFactory
+        }
+class BulletPlusFactory{
+    + createProp(int locationX,int locationY,int speedX, int speedY):AbstractPropFactory
+        }
+
+AbstractProp -[hidden]> AbstractPropFactory
+AbstractProp <|-- BloodSupplyProp
+AbstractProp <|-- BombSupplyProp
+AbstractProp <|-- FireSupplyProp
+AbstractProp <|-- BulletPlusProp
+AbstractPropFactory <|-- BloodPropFactory
+AbstractPropFactory <|-- BombPropFactory
+AbstractPropFactory <|-- FirePropFactory
+AbstractPropFactory <|-- BulletPlusFactory
+BloodPropFactory ..> BloodSupplyProp: <create>
+BombPropFactory ..> BombSupplyProp: <create>
+FirePropFactory ..>FireSupplyProp: <create>
+BulletPlusFactory ..>BulletPlusProp: <create>
+@enduml

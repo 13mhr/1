@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Main {
+}
+
+abstract class AbstractGame {
+# backGroundTop:int
+- executorService:ScheduledExecutorService
++ {static}  difficulty:String
++ {static} firePropNum:int
+# timeInterval:int
+# diffChangeDuration:int
+# elitePlusTime:int
+# heroAircraft:HeroAircraft
+# enemyAircrafts:List<AbstractEnemyAircraft>
+# heroBullets:List<BaseBullet>
+# enemyBullets:List<BaseBullet>
+# props:List<AbstractProp>
+# enemyFactory:AbstractEnemyFactory
+- {static} score:int
+- time:int
+# enemyMaxNumber:int
+# enemyRate:double
+# cycleDuration:int
+# cycleTime:int
+# diffCycleTime:int
+# bgmMusic:MusicThread
+# bgmBossMusic:MusicThread
+# BossScore:int
+# bossOnScreen:boolean
+#
++ <<Create>> AbstractGame()
++ action():void
+- timeCountAction():void
+# newCycleJudge():boolean
+# newDiffChangeJudge():boolean
+- musicControlAction():void
+# {abstract} changeDiffAction():void
+- createEnemyAction():void
+# {abstract} createBossAction():void
+- shootAction():void
+- newTimeAction():void
+- bulletsMoveAction():void
+- aircraftsMoveAction():void
+- propsMoveAction():void
+- crashCheckAction():void
+- postProcessAction():void
++ paint(Graphics g):void
+# {abstract} paintBackground(Graphics g):void
+- gameOverCheckAction():void
+- paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects):void
+- paintScoreAndLife(Graphics g):void
+}
+
+class EasyGame {
++ <<Create>> EasyGame()
+# createBossAction():void
+# changeDiffAction():void
+# paintBackground(Graphics g):void
+}
+
+class MediumGame {
+- diffRate:void
++ <<Create>> MediumGame()
+# createBossAction():void
+# changeDiffAction():void
+# paintBackground(Graphics g):void
+}
+
+class HardGame {
+- diffRate:double
+- bossRate:double
++ <<Create>> HardGame()
+# createBossAction():void
+# changeDiffAction():void
+# paintBackground(Graphics g):void
+}
+
+Main ..>AbstractGame
+AbstractGame <|-- MediumGame
+AbstractGame <|-- HardGame
+AbstractGame <|-- EasyGame
+
+@enduml

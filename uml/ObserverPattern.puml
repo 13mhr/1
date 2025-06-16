@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+interface Subscriber {
++ {abstract} update():void
+}
+
+abstract class Game {
+}
+
+class EliteEnemy {
++ <<Create>> EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+int hp,int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ produceProp():AbstractProp
++ update():void
+}
+
+class ElitePlusEnemy {
++ <<Create>> EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+int hp,int direction, int shootNum, int power, ShootStrategy shootStrategy)
++ produceProp():AbstractProp
++ update():void
+}
+class MobEnemy {
++ <<Create>> MobEnemy(int locationX,
+int locationY, int speedX, int speedY, int hp)
++ produceProp():AbstractProp
++ update():void
+}
+
+class BombSupplyProp {
+- subscriberList: List<Subscriber>
++ <<Create>> BombSupplyProp(int locationX,
+int locationY, int speedX, int speedY)
++ addSubscriber(Subscriber subscriber):void
++ removeSubscriber(Subscriber subscriber):void
++ notifyAllSubscribers():void
++ function(HeroAircraft):void
+}
+
+class EnemyBullet{
++ EnemyBullet(int locationX, int locationY,
+int speedX, int speedY, int power)
++ update():void
+}
+
+Game ..> BombSupplyProp
+BombSupplyProp o--> Subscriber
+Subscriber <|.. MobEnemy
+Subscriber <|.. EliteEnemy
+Subscriber <|.. ElitePlusEnemy
+Subscriber <|.. EnemyBullet
+
+
+
+
+@enduml
